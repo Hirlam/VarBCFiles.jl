@@ -45,7 +45,7 @@ function read2(fname::String,::Type{VarBC})
         fldname, value = readline(io) |> x -> split(x, '=')
 
         
-        fldname == "numpreds" && continue
+        fldname == "numpreds" && (println("Warning numpreds field found"); continue)
         # @show getproperty(out[ind], Symbol(fieldname))
         fldname == "ix" ? ind = parse(Int,value) : setproperty!(out[ind], Symbol(fldname), parse2(typetable[Symbol(fldname)],value))
     end
