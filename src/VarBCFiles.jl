@@ -1,7 +1,7 @@
 module VarBCFiles
 
 using Dates
-import Base: read, show, size, getindex, vcat
+import Base: read, show, size, getindex, vcat, ==
 export VarBC
 
 include("VarBCRecord.jl")
@@ -17,6 +17,8 @@ show(io::IO, ::MIME"text/plain", a::VarBC) = println(io, "VarBC with $(length(a)
 
 vcat(a::VarBC,b::VarBC) = a.datetime == b.datetime ? VarBC(a.datetime,[a.records; b.records]) : throw("datetimes not equal")
 
+==(a::VarBC,b::VarBC) = a.datetime == b.datetime && a.records == a.records
+
 # gettype(fieldname) = typetable[fieldname]  
 
 function read(fname::String,::Type{VarBC})
@@ -24,7 +26,7 @@ function read(fname::String,::Type{VarBC})
     version = readline(io)
     str, date, time = split(readline(io))
     numrecord, dummy1 = split(readline(io))
-    @info "Reading $numrecord records from $fname valid for $date $time"
+#     @info "Reading $numrecord records from $fname valid for $date $time"
     
     dt = DateTime("$(date)$(lpad(time,6,"0"))","yyyymmddHHMMSS") 
     records = [VarBCRecord() for i in 1:parse(Int,numrecord)] 
