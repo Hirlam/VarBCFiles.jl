@@ -1,7 +1,7 @@
 module VarBCFiles
 
 using Dates
-import Base: read, show, size, getindex, vcat, ==
+import Base: read, show, size, getindex, ==, merge!
 export VarBC
 
 include("VarBCRecord.jl")
@@ -29,17 +29,28 @@ function ==(a::VarBC,b::VarBC)
     b.header2 == b.header2 &&
     a.version == a.version &&
     a.records == a.records
+end
+
+function merge!(a::VarBC,b::VarBC)
+    alabels = getfield.(a.records,:label)
+    for rec in b.records
+        if rec.label ∉ alabels
+            push!(a.records,rec) 
+        end 
+    end 
 end 
+
 
 # gettype(fieldname) = typetable[fieldname]  
 
 function read(fname::String,::Type{VarBC})
     io = open(fname)
-    version = readline(io)
+    version = readline(io); @assert version == "VARBC_cycle.version006"
     header1 = readline(io)
     header2 = readline(io)
     str, date, time = split(header1)
     numrecord, dummy1 = split(header2)
+
 #     @info "Reading $numrecord records from $fname valid for $date $time"
     
     dt = DateTime("$(date)$(lpad(time,6,"0"))","yyyymmddHHMMSS") 
@@ -47,7 +58,7 @@ function read(fname::String,::Type{VarBC})
     out = VarBC(dt,version,header1, header2,records)
     ind = 0
     while !eof(io)
-        fldname, value = readline(io) |> x -> split(x, '=')
+        fldname, value = readline(io) |> x -> split(x, '=', limit=2)
 
         
         fldname == "numpreds" && (println("Warning numpreds field found"); continue)
@@ -57,5 +68,6 @@ function read(fname::String,::Type{VarBC})
     close(io)
     return out
 end 
+
 
 end # module

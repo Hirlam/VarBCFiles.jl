@@ -2,7 +2,8 @@
 mutable struct VarBCRecord
     class::String 
     key::String 
-    label::String 
+    label::String
+    pdate::String 
     ndata::Int64
     npred::Int64
     predcs::Vector{Int64}
@@ -13,7 +14,7 @@ mutable struct VarBCRecord
     predmean::Vector{Float64}
     predxcov::Vector{Float64} 
  end
- VarBCRecord() = VarBCRecord("","","",0,0,[],[],[],[],[],[],[])
+ VarBCRecord() = VarBCRecord("","","","",0,0,[],[],[],[],[],[],[])
  
  function show(io::IO, a::VarBCRecord) 
     println(io, "VarBC")

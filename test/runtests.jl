@@ -1,16 +1,17 @@
 
 using Dates, Test, VarBCFiles
 
-v1 = read("VARBC.cycle",VarBC)
-v2 = read("VARBC.cycle",VarBC)
+@test_throws AssertionError("version == \"VARBC_cycle.version006\"") read("VARBC.cycle_v5",VarBC)
 
-@test v1.datetime == DateTime(2016,06,01,06,00,00)
-@test v1 == v2
+v1 = read("VARBC.cycle1",VarBC)
+v2 = read("VARBC.cycle2",VarBC)
 
-v1.datetime = DateTime(2017,06,01,06,00,00)
 @test v1 != v2
 
-@testset "vcat" begin
-    @test_throws AssertionError("a.datetime == b.datetime") [v1; v2]    # throws because incompatible datetimes
+@testset "merge" begin
+     @test length(v1) == 1080
+     @test length(v2) == 1043
+     merge!(v1,v2)
+     @test length(v1) == 1083
+    
 end
-
