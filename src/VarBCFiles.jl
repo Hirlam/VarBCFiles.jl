@@ -1,46 +1,35 @@
 module VarBCFiles
 
-
-import Base: read
+using Dates
+import Base: read, show, size, getindex, vcat
 export VarBC
 
-mutable struct VarBC
-   class::String 
-   key::String 
-   label::String 
-   ndata::Int64
-   npred::Int64
-   predcs::Vector{Int64}
-   param0::Vector{Float64}
-   params::Vector{Float64}
-   hstgrm::Vector{Int64} 
-   predxcnt::Vector{Int64}
-   predmean::Vector{Float64}
-   predxcov::Vector{Float64} 
-end 
+include("VarBCRecord.jl")
 
-VarBC() = VarBC("","","",0,0,[],[],[],[],[],[],[])
+mutable struct VarBC <: AbstractArray{VarBCRecord,1}
+    datetime::DateTime
+    records::Array{VarBCRecord,1}
+end
 
-rmdi2missing(x) = x == -2.147e+09 ? NaN : x
-parse2(::Type{String},x) = x  # this should be in Base 
-parse2(::Type{Vector{T}},x ) where T = split(x) |> x-> parse.(T,x) |> x->rmdi2missing.(x)
+size(a::VarBC) = (length(a.records),)
+getindex(a::VarBC,i::Int) = a.records[i] 
+show(io::IO, ::MIME"text/plain", a::VarBC) = println(io, "VarBC with $(length(a)) records for $(a.datetime)")
 
+vcat(a::VarBC,b::VarBC) = a.datetime == b.datetime ? VarBC(a.datetime,[a.records; b.records]) : throw("datetimes not equal")
 
-parse2(::Type{T},x ) where T = parse(T,x)  
-
-
-const typetable = Dict{Symbol,DataType}(zip(fieldnames(VarBC), VarBC.types))
 # gettype(fieldname) = typetable[fieldname]  
 
-function read2(fname::String,::Type{VarBC})
+function read(fname::String,::Type{VarBC})
     io = open(fname)
     version = readline(io)
     str, date, time = split(readline(io))
     numrecord, dummy1 = split(readline(io))
     @info "Reading $numrecord records from $fname valid for $date $time"
     
-    out = [VarBC() for i in 1:parse(Int,numrecord)] 
-    ind = 1 
+    dt = DateTime("$(date)$(lpad(time,6,"0"))","yyyymmddHHMMSS") 
+    records = [VarBCRecord() for i in 1:parse(Int,numrecord)] 
+    out = VarBC(dt,records)
+    ind = 0
     while !eof(io)
         fldname, value = readline(io) |> x -> split(x, '=')
 
