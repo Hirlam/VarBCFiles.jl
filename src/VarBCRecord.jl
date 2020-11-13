@@ -15,8 +15,15 @@ mutable struct VarBCRecord
  end
  VarBCRecord() = VarBCRecord("","","",0,0,[],[],[],[],[],[],[])
  
- # show(io::IO, a::VarBCRecord) = print(io, "VarBC $(rpad(a.label,30)) predcs=$(rpad(a.predcs,30)) ndata=$(a.ndata)")
- 
+ function show(io::IO, a::VarBCRecord) 
+    println(io, "VarBC")
+    println(io, "label  = $(a.label)")
+    println(io, "predcs = $(a.predcs)")
+    println(io, "ndata  = $(a.ndata)")
+    println(io, "param0 = $(a.param0)")
+    println(io, "params = $(a.params)")
+ end 
+
  rmdi2missing(x) = x == -2.147e+09 ? NaN : x
  parse2(::Type{String},x) = x  # this should be in Base 
  parse2(::Type{Vector{T}},x ) where T = split(x) |> x-> parse.(T,x) |> x->rmdi2missing.(x)

@@ -11,6 +11,6 @@ v1.datetime = DateTime(2017,06,01,06,00,00)
 @test v1 != v2
 
 @testset "vcat" begin
-    @test_throws "ErrorException" [v1; v2]    # throws because incompatible datetimes
+    @test_throws AssertionError("a.datetime == b.datetime") [v1; v2]    # throws because incompatible datetimes
 end
 
