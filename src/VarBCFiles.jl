@@ -45,7 +45,7 @@ function read(fname::String,::Type{VarBC})
 
 #     @info "Reading $numrecord records from $fname valid for $date $time"
     
-    dt = DateTime("$date$time","yyyymmddHMMSS") 
+    dt = DateTime("$date$(lpad(time,6,"0"))","yyyymmddHHMMSS") 
     out = VarBC(dt,version,header1, header2,VarBCRecord[])
     while !eof(io)
         push!(out.records, read(io,VarBCRecord))        
