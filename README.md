@@ -1,4 +1,8 @@
+
+
 # VarBCFiles
+
+[![Build Status](https://travis-ci.com/roelstappers/VarBCFiles.jl.svg?branch=master)](https://travis-ci.com/roelstappers/VarBCFiles.jl)
 
 
 This package reads `VarBC.cycle` files version 6.
