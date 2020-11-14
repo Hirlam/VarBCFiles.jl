@@ -26,10 +26,11 @@ struct VarBCRecord
  end
  
  function read(io::IO,::Type{VarBCRecord})
-       parsev(::Type{T},x) where T = split(x) |> x -> parse.(T,x)
-       rmdi2missing(x) = x == -2.147e+09 ? NaN : x
+       rmdi2nan(x) = x == -2.147e+09 ? NaN : x
+       parsev(::Type{T},x) where T = split(x) |>  x -> parse.(T,x)  |> x -> rmdi2nan.(x)
+      
        ix       = readline(io) |> x -> replace(x, r"^ix="       => "")  |> x -> parse(Int,x)   # ix not used 
-       pdate    = readline(io) |> x -> replace(x, r"^pdate"     => "")  # |> x -> parse(String,x)
+       pdate    = readline(io) |> x -> replace(x, r"^pdate="     => "")  # |> x -> parse(String,x)
        class    = readline(io) |> x -> replace(x, r"^class="    => "")  #|> x -> parse(String,x)
        key      = readline(io) |> x -> replace(x, r"^key="      => "")  #|> x -> parse(String,x)
        label    = readline(io) |> x -> replace(x, r"^label="    => "")  #|> x -> parse(String,x)

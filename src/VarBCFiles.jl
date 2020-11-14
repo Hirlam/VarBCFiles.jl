@@ -5,7 +5,6 @@ import Base: read, show, size, getindex, ==, merge!
 export VarBC
 
 include("VarBCRecord.jl")
-include("obsolete.jl")
 
 struct VarBC <: AbstractArray{VarBCRecord,1}
     datetime::DateTime
