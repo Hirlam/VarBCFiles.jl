@@ -18,7 +18,7 @@ struct VarBCRecord
  show(io::IO,a::VarBCRecord) = print(io,a.label)
 
  function show(io::IO,::MIME"text/plain", a::VarBCRecord) 
-    println(io, "VarBC")
+    println(io, "VarBC Record")
     println(io, "label  = $(a.label)")
     println(io, "predcs = $(a.predcs)")
     println(io, "ndata  = $(a.ndata)")
