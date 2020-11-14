@@ -15,7 +15,9 @@ struct VarBCRecord
     predxcov::Vector{Float64} 
  end
  
- function show(io::IO, a::VarBCRecord) 
+ show(io::IO,a::VarBCRecord) = print(io,a.label)
+
+ function show(io::IO,::MIME"text/plain", a::VarBCRecord) 
     println(io, "VarBC")
     println(io, "label  = $(a.label)")
     println(io, "predcs = $(a.predcs)")
