@@ -1,7 +1,7 @@
 # VarBCFiles
 
 
-This packages reads `VarBC.cycle` files version 6.
+This package reads `VarBC.cycle` files version 6.
 
 # Examples 
 
