@@ -5,8 +5,9 @@ import Base: read, show, size, getindex, ==, merge!
 export VarBC
 
 include("VarBCRecord.jl")
+include("obsolete.jl")
 
-mutable struct VarBC <: AbstractArray{VarBCRecord,1}
+struct VarBC <: AbstractArray{VarBCRecord,1}
     datetime::DateTime
     version::String
     header1::String
@@ -18,10 +19,10 @@ size(a::VarBC) = (length(a.records),)
 getindex(a::VarBC,i::Int) = a.records[i] 
 show(io::IO, ::MIME"text/plain", a::VarBC) = println(io, "VarBC with $(length(a)) records for $(a.datetime)")
 
-function vcat(a::VarBC,b::VarBC) 
-    @assert a.datetime == b.datetime
-    VarBC(a.datetime,a.version, a.header1, a.header2, [a.records; b.records]) 
-end
+#function vcat(a::VarBC,b::VarBC) 
+#    @assert a.datetime == b.datetime
+#    VarBC(a.datetime,a.version, a.header1, a.header2, [a.records; b.records]) 
+#end
 
 function ==(a::VarBC,b::VarBC) 
     a.datetime == b.datetime &&
@@ -40,9 +41,6 @@ function merge!(a::VarBC,b::VarBC)
     end 
 end 
 
-
-# gettype(fieldname) = typetable[fieldname]  
-
 function read(fname::String,::Type{VarBC})
     io = open(fname)
     version = readline(io); @assert version == "VARBC_cycle.version006"
@@ -53,17 +51,10 @@ function read(fname::String,::Type{VarBC})
 
 #     @info "Reading $numrecord records from $fname valid for $date $time"
     
-    dt = DateTime("$(date)$(lpad(time,6,"0"))","yyyymmddHHMMSS") 
-    records = [VarBCRecord() for i in 1:parse(Int,numrecord)] 
-    out = VarBC(dt,version,header1, header2,records)
-    ind = 0
+    dt = DateTime("$date$time","yyyymmddHMMSS") 
+    out = VarBC(dt,version,header1, header2,VarBCRecord[])
     while !eof(io)
-        fldname, value = readline(io) |> x -> split(x, '=', limit=2)
-
-        
-        fldname == "numpreds" && (println("Warning numpreds field found"); continue)
-        # @show getproperty(out[ind], Symbol(fieldname))
-        fldname == "ix" ? ind = parse(Int,value) : setproperty!(out[ind], Symbol(fldname), parse2(typetable[Symbol(fldname)],value))
+        push!(out.records, read(io,VarBCRecord))        
     end
     close(io)
     return out
