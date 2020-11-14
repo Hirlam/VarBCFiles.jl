@@ -13,7 +13,7 @@ VarBC with 1080 records for 2019-08-02T12:00:00
 
 ```julia 
 julia> v[1]
-VarBC
+VarBC Record
 label  = D0MZ8zJj 16199110       1     6
 predcs = [0]
 ndata  = 1
@@ -22,8 +22,8 @@ params = [1110.0]
 ```
 
 ```julia
-filter(x-> x.ndata !=0 ,v)
-967-element Array{VarBCFiles.VarBCRecord,1}:
+julia> filter(x-> x.ndata !=0 ,v)
+967-element Array{VarBCRecord,1}:
  D0MZ8zJj 16199110       1     6
  jyMWkv4j 16199110       1     2
  xPjBCo1h 16199110       1    17
