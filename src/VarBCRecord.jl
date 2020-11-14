@@ -14,7 +14,6 @@ struct VarBCRecord
     predmean::Vector{Float64}
     predxcov::Vector{Float64} 
  end
-#  VarBCRecord() = VarBCRecord("","","","",0,0,[],[],[],[],[],[],[])
  
  function show(io::IO, a::VarBCRecord) 
     println(io, "VarBC")
@@ -24,6 +23,8 @@ struct VarBCRecord
     println(io, "param0 = $(a.param0)")
     println(io, "params = $(a.params)")
  end
+
+ increment(a::VarBCRecord) = a.params - a.param0
  
  function read(io::IO,::Type{VarBCRecord})
        rmdi2nan(x) = x == -2.147e+09 ? NaN : x

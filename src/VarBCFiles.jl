@@ -2,7 +2,7 @@ module VarBCFiles
 
 using Dates
 import Base: read, show, size, getindex, ==, merge!
-export VarBC
+export VarBC, increment
 
 include("VarBCRecord.jl")
 
