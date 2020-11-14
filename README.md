@@ -8,14 +8,18 @@ This package reads `VarBC.cycle` files version 6.
 
 # Examples 
 
+## Reading
+
 
 ```julia
-julia> v = read("test/VARBC.cycle1",VarBC)
+julia> v1 = read("test/VARBC.cycle1",VarBC)
 VarBC with 1080 records for 2019-08-02T12:00:00
 ```
 
+## Indexing
+
 ```julia 
-julia> v[1]
+julia> v1[1]
 VarBC Record
 label  = D0MZ8zJj 16199110       1     6
 predcs = [0]
@@ -23,6 +27,24 @@ ndata  = 1
 param0 = [1110.0]
 params = [1110.0]
 ```
+
+## Merging 
+
+```julia
+julia> v2 = read("test/VARBC.cycle2",VarBC)
+VarBC with 1043 records for 2019-08-02T06:00:00
+```
+
+```julia
+julia> merge!(v1,v2)
+```
+
+```julia
+julia> v1
+VarBC with 1083 records for 2019-08-02T12:00:00
+```
+
+## Filtering 
 
 ```julia
 julia> filter(x-> x.ndata !=0 ,v)
