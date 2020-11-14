@@ -18,11 +18,6 @@ size(a::VarBC) = (length(a.records),)
 getindex(a::VarBC,i::Int) = a.records[i] 
 show(io::IO, ::MIME"text/plain", a::VarBC) = println(io, "VarBC with $(length(a)) records for $(a.datetime)")
 
-#function vcat(a::VarBC,b::VarBC) 
-#    @assert a.datetime == b.datetime
-#    VarBC(a.datetime,a.version, a.header1, a.header2, [a.records; b.records]) 
-#end
-
 function ==(a::VarBC,b::VarBC) 
     a.datetime == b.datetime &&
     a.header1 == b.header1 &&
