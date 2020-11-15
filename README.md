@@ -26,7 +26,7 @@ Alternatively add the [Harmonie Registry](https://github.com/roelstappers/Harmon
 pkg> registry add https://github.com/roelstappers/HarmonieRegistry
 ```
 
-The package can then add  installed by
+The package can then be added by
 
 ```julia
 pkg> add VarBCFiles
