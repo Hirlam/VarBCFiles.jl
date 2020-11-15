@@ -1,5 +1,5 @@
 
-using Dates, Test, VarBCFiles
+using Test, VarBCFiles
 
 # Check that we only allow version 6 files
 @test_throws AssertionError("version == \"VARBC_cycle.version006\"") read("VARBC.cycle_v5",VarBC)
