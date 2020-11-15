@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.com/roelstappers/VarBCFiles.jl.svg?branch=master)](https://travis-ci.com/roelstappers/VarBCFiles.jl) [![Coverage Status](https://coveralls.io/repos/github/roelstappers/VarBCFiles.jl/badge.svg?branch=master)](https://coveralls.io/github/roelstappers/VarBCFiles.jl?branch=master)
 
-This package reads `VarBC.cycle` files version 6.
+This package reads `VarBC.cycle` files version 6
 
 # Examples 
 
