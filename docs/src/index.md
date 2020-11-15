@@ -5,11 +5,14 @@ This package can be used to read `VARBC.cycle` files version 6
 
 ## Examples 
 
+
 ### Reading
 
 
 ```julia
-julia> v1 = read("test/VARBC.cycle1",VarBC)
+julia> using VarBCFiles
+julia> testdir = joinpath(dirname(pathof(VarBCFiles)),"../test")
+julia> v1 = read("$testdir/VARBC.cycle1",VarBC)
 VarBC with 1080 records for 2019-08-02T12:00:00
 ```
 
@@ -28,7 +31,7 @@ params = [1110.0]
 ### Merging 
 
 ```julia
-julia> v2 = read("test/VARBC.cycle2",VarBC)
+julia> v2 = read("$testdir/VARBC.cycle2",VarBC)
 VarBC with 1043 records for 2019-08-02T06:00:00
 ```
 
