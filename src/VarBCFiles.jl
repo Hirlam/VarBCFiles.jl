@@ -1,7 +1,7 @@
 module VarBCFiles
 
 using Dates
-import Base: read, show, size, getindex, ==, merge!
+import Base: read, write, show, size, getindex, ==, merge!
 export VarBC, VarBCRecord, increment
 
 include("VarBCRecord.jl")
@@ -52,6 +52,23 @@ function read(fname::String,::Type{VarBC})
     end
     close(io)
     return out
+end
+
+
+"""
+    write(fname,a)
+
+    Write VarBC struct to file
+"""
+function write(fname::String,a::VarBC)
+    io = open(fname,"w")
+    write(io,a.version,"\n")
+    write(io,a.header1,"\n")
+    write(io,a.header2,"\n")
+    for rec in a.records
+        write(io,rec)
+    end 
+    close(io)
 end 
 
 

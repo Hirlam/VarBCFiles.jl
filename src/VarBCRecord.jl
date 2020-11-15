@@ -50,6 +50,9 @@ struct VarBCRecord
        VarBCRecord(ix,pdate,class,key,label,ndata,npred,predcs,param0,params,hstgrm,predxcnt,predmean,predxcov) 
    end 
 
+
+    
+# note: not finished. Format strings using @printf ?  
 function write(io::IO,a::VarBCRecord)
    nan2rmdi(x) = isnan(x) ? -2.147e+09 : x
    println(io,"ix=$(a.ix)")
@@ -60,7 +63,7 @@ function write(io::IO,a::VarBCRecord)
    println(io,"ndata=$(a.ndata)")
    println(io,"npred=$(a.npred)")
    println(io,"predcs=$(join(a.predcs," "))")
-   println(io,"param0=$(join(nan2rmdi.(a.param0)," "))")
+   println(io,"param0=$(join(nan2rmdi.(a.param0)," "))")  
    println(io,"params=$(join(nan2rmdi.(a.params)," "))")
    println(io,"hstgrm=$(join(a.hstgrm, " "))")
    println(io,"predxcnt=$(join(nan2rmdi.(a.predxcnt)," "))")
