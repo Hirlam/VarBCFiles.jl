@@ -1,9 +1,10 @@
 
 struct VarBCRecord
+    ix::Int
+    pdate::String 
     class::String 
     key::String 
-    label::String
-    pdate::String 
+    label::String    
     ndata::Int64
     npred::Int64
     predcs::Vector{Int64}
@@ -46,14 +47,23 @@ struct VarBCRecord
        predxcnt = readline(io) |> x -> replace(x, r"^predxcnt=" => "")  |> x -> parsev(Int64,x)
        predmean = readline(io) |> x -> replace(x, r"^predmean=" => "")  |> x -> parsev(Float64,x)
        predxcov = readline(io) |> x -> replace(x, r"^predxcov=" => "")  |> x -> parsev(Float64,x)
-       VarBCRecord(pdate,class,key,label,ndata,npred,predcs,param0,params,hstgrm,predxcnt,predmean,predxcov) 
+       VarBCRecord(ix,pdate,class,key,label,ndata,npred,predcs,param0,params,hstgrm,predxcnt,predmean,predxcov) 
    end 
 
- # parse2(::Type{String},x) = x  # this should be in Base 
- # parse2(::Type{Vector{T}},x ) where T = split(x) |> x-> parse.(T,x) |> x->rmdi2missing.(x)
- # parse2(::Type{T},x ) where T = parse(T,x)  
- 
- 
- # const typetable = Dict{Symbol,DataType}(zip(fieldnames(VarBCRecord), VarBCRecord.types))
-
-# Note we cannot implement read from iostream here as information is spread over VARBC.cycle files
+function write(io::IO,a::VarBCRecord)
+   nan2rmdi(x) = isnan(x) ? -2.147e+09 : x
+   println(io,"ix=$(a.ix)")
+   println(io,"pdate=$(a.pdate)")
+   println(io,"class=$(a.class)")
+   println(io,"key=$(a.key)")
+   println(io,"label=$(a.label)")
+   println(io,"ndata=$(a.ndata)")
+   println(io,"npred=$(a.npred)")
+   println(io,"predcs=$(join(a.predcs," "))")
+   println(io,"param0=$(join(nan2rmdi.(a.param0)," "))")
+   println(io,"params=$(join(nan2rmdi.(a.params)," "))")
+   println(io,"hstgrm=$(join(a.hstgrm, " "))")
+   println(io,"predxcnt=$(join(nan2rmdi.(a.predxcnt)," "))")
+   println(io,"predmean=$(join(nan2rmdi.(a.predmean)," "))")
+   println(io,"predxcov=$(join(nan2rmdi.(a.predxcov)," "))")   
+end 
