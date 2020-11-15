@@ -13,13 +13,20 @@ Read `VARBC.cycle` files version 6
 # Installation 
 
 This package can be installed with the Julia package manager. Hit `]` in the Julia REPL to go into package mode. 
-If the [Harmonie Registry](https://github.com/roelstappers/HarmonieRegistry) hasn't added run 
+
+```julia
+pkg> add https://github.com/roelstappers/VarBCFiles.jl
+```
+
+## Installation using  HarmonieRegistry 
+
+Alternatively add the [Harmonie Registry](https://github.com/roelstappers/HarmonieRegistry)  
 
 ```julia
 pkg> registry add https://github.com/roelstappers/HarmonieRegistry
 ```
 
-Then add the package by
+The package can then add  installed by
 
 ```julia
 pkg> add VarBCFiles
