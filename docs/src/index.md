@@ -44,6 +44,17 @@ julia> v1
 VarBC with 1083 records for 2019-08-02T12:00:00
 ```
 
+### Plotting
+
+```julia
+using Plots
+g(v,s) = getindex.(getfield.(v,s),1))
+scatter(g(v1, :params) - g(v1,:param0),label=:none)
+```
+
+![](fig/scatter_increment.png)
+
+
 ### Filtering 
 
 ```julia
