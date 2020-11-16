@@ -54,19 +54,25 @@ struct VarBCRecord
     
 # note: not finished. Format strings using @printf ?  
 function write(io::IO,a::VarBCRecord)
-   nan2rmdi(x) = isnan(x) ? -2.147e+09 : x
-   println(io,"ix=$(a.ix)")
-   println(io,"pdate=$(a.pdate)")
-   println(io,"class=$(a.class)")
-   println(io,"key=$(a.key)")
-   println(io,"label=$(a.label)")
-   println(io,"ndata=$(a.ndata)")
-   println(io,"npred=$(a.npred)")
-   println(io,"predcs=$(join(a.predcs," "))")
-   println(io,"param0=$(join(nan2rmdi.(a.param0)," "))")  
-   println(io,"params=$(join(nan2rmdi.(a.params)," "))")
-   println(io,"hstgrm=$(join(a.hstgrm, " "))")
-   println(io,"predxcnt=$(join(nan2rmdi.(a.predxcnt)," "))")
-   println(io,"predmean=$(join(nan2rmdi.(a.predmean)," "))")
-   println(io,"predxcov=$(join(nan2rmdi.(a.predxcov)," "))")   
+ 
+   # Print Float  Int  Array{Float,1} etc.  
+   myprint(f::Float64) = isnan(f) ? "-2.147E+09" : @sprintf("% -.3E",f) 
+   myprint(i::Int64) = string(i)
+   myprint(s::String) = s
+   myprint(a::Array{T,1}) where T = join(myprint.(a)," ")
+
+   println(io,"ix=$(myprint(a.ix))")
+   println(io,"pdate=$(myprint(a.pdate))")
+   println(io,"class=$(myprint(a.class))")
+   println(io,"key=$(myprint(a.key))")
+   println(io,"label=$(myprint(a.label))")
+   println(io,"ndata=$(myprint(a.ndata))")
+   println(io,"npred=$(myprint(a.npred))")
+   println(io,"predcs=$(myprint(a.predcs))")
+   println(io,"param0=$(myprint(a.param0))")  
+   println(io,"params=$(myprint(a.params))")
+   println(io,"hstgrm=$(myprint(a.hstgrm))")
+   println(io,"predxcnt=$(myprint(a.predxcnt))")
+   println(io,"predmean=$(myprint(a.predmean))")
+   println(io,"predxcov=$(myprint(a.predxcov))")   
 end 

@@ -1,6 +1,6 @@
 module VarBCFiles
 
-using Dates
+using Dates, Printf
 import Base: read, write, show, size, getindex, ==, merge!
 export VarBC, VarBCRecord, increment
 
