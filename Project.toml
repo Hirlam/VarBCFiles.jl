@@ -1,7 +1,7 @@
 name = "VarBCFiles"
 uuid = "fbe08674-9bec-468f-b573-070b1062a62f"
 authors = ["Roel Stappers <roels@met.no>"]
-version = "0.1.1"
+version = "0.2.0"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
