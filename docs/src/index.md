@@ -5,15 +5,20 @@ This package can be used to read `VARBC.cycle` files version 6
 
 ## Examples 
 
-
-### Reading
-
+The examples will use the `VARBC.cycle` files from the `test` directory
 
 ```julia
 julia> using VarBCFiles
 julia> testdir = joinpath(dirname(pathof(VarBCFiles)),"../test")
+```
+
+### Read/write
+
+```julia
 julia> v1 = read("$testdir/VARBC.cycle1",VarBC)
 VarBC with 1080 records for 2019-08-02T12:00:00
+
+julia> write("some/path/VARBC.cycle",v1)
 ```
 
 ### Indexing
