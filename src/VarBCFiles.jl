@@ -65,8 +65,8 @@ function write(fname::String,a::VarBC)
     write(io,a.version,"\n")
     write(io,a.header1,"\n")
     write(io,a.header2,"\n")
-    for rec in a.records
-        write(io,rec)
+    for (i,rec) in enumerate(a.records)
+        write(io,rec,i)
     end 
     close(io)
 end 

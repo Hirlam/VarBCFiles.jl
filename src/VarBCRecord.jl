@@ -1,6 +1,5 @@
 
 struct VarBCRecord
-    ix::Int
     pdate::String 
     class::String 
     key::String 
@@ -33,7 +32,7 @@ struct VarBCRecord
        rmdi2nan(x) = x == -2.147e+09 ? NaN : x
        parsev(::Type{T},x) where T = split(x) |>  x -> parse.(T,x)  |> x -> rmdi2nan.(x)
       
-       ix       = readline(io) |> x -> replace(x, r"^ix="       => "")  |> x -> parse(Int,x)   # ix not used 
+       ix       = readline(io)  # |> x -> replace(x, r"^ix="       => "")  |> x -> parse(Int,x)   # ix not used 
        pdate    = readline(io) |> x -> replace(x, r"^pdate="     => "")  # |> x -> parse(String,x)
        class    = readline(io) |> x -> replace(x, r"^class="    => "")  #|> x -> parse(String,x)
        key      = readline(io) |> x -> replace(x, r"^key="      => "")  #|> x -> parse(String,x)
@@ -47,13 +46,13 @@ struct VarBCRecord
        predxcnt = readline(io) |> x -> replace(x, r"^predxcnt=" => "")  |> x -> parsev(Int64,x)
        predmean = readline(io) |> x -> replace(x, r"^predmean=" => "")  |> x -> parsev(Float64,x)
        predxcov = readline(io) |> x -> replace(x, r"^predxcov=" => "")  |> x -> parsev(Float64,x)
-       VarBCRecord(ix,pdate,class,key,label,ndata,npred,predcs,param0,params,hstgrm,predxcnt,predmean,predxcov) 
+       VarBCRecord(pdate,class,key,label,ndata,npred,predcs,param0,params,hstgrm,predxcnt,predmean,predxcov) 
    end 
 
 
     
 # note: not finished. Format strings using @printf ?  
-function write(io::IO,a::VarBCRecord)
+function write(io::IO,a::VarBCRecord, ix::Int)
  
    # Print Float  Int  Array{Float,1} etc.  
    myprint(f::Float64) = isnan(f) ? "-2.147E+09" : @sprintf("% -.3E",f) 
@@ -61,7 +60,7 @@ function write(io::IO,a::VarBCRecord)
    myprint(s::String) = s
    myprint(a::Array{T,1}) where T = join(myprint.(a)," ")
 
-   println(io,"ix=$(myprint(a.ix))")
+   println(io,"ix=$ix")
    println(io,"pdate=$(myprint(a.pdate))")
    println(io,"class=$(myprint(a.class))")
    println(io,"key=$(myprint(a.key))")
