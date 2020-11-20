@@ -17,22 +17,20 @@ This package can be installed with the Julia package manager. Hit `]` in the Jul
 
 ### Install stable version  
 
-If this is the first time you use the Julia package manager 
-
-```julia
-pkg> registry add General
-```
-
 To install the latest version from the [Harmonie Registry](https://github.com/roelstappers/HarmonieRegistry)  
 
 ```julia
+pkg> registry add General
 pkg> registry add https://github.com/roelstappers/HarmonieRegistry
 pkg> add VarBCFiles
 ```
 
 ### Install development version
 
+To work on the latest development version in the master branch
 
 ```julia
-pkg> add https://github.com/roelstappers/VarBCFiles.jl
+pkg> dev https://github.com/roelstappers/VarBCFiles.jl
 ```
+
+Code will be put in `$HOME/.julia/dev/VarBCFiles/` by default. 
