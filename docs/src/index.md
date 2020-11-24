@@ -49,6 +49,13 @@ julia> v1
 VarBC with 1083 records for 2019-08-02T12:00:00
 ```
 
+To merge e.g. only the surface observations from v2 into v1 filter the v2 records first
+
+```julia
+filter!(x-> x.class=="sfcobs" ,v2.records)
+merge!(v1,v2)
+```
+
 ### Plotting
 
 ```julia
