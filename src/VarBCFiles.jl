@@ -1,23 +1,27 @@
 module VarBCFiles
 
-using Dates, Printf
-import Base: read, write, show, size, getindex, ==, merge!
-export VarBC, VarBCRecord, increment
+using Dates, Printf, DataStructures
+import Base: read, write, show, size, getindex, ==, merge!, length
+export VarBC, VarBCRecord, increment, label
 
 include("VarBCRecord.jl")
 
-struct VarBC <: AbstractArray{VarBCRecord,1}
+struct VarBC  # <: AbstractDict{String, VarBCRecord}
     datetime::DateTime
     version::String
     header1::String
     header2::String
-    records::Array{VarBCRecord,1}
+    records::OrderedDict{String,VarBCRecord}
 end
 
 size(a::VarBC) = (length(a.records),)
-getindex(a::VarBC,i::Int) = a.records[i] 
+length(a::VarBC) = length(a.records)
+# getindex(a::VarBC,i::Int) = a.records[i] 
 show(io::IO, ::MIME"text/plain", a::VarBC) = println(io, "VarBC with $(length(a)) records for $(a.datetime)")
 
+
+merge!(a::VarBC,b::VarBC) = merge!(a.records,b.records)
+ 
 function ==(a::VarBC,b::VarBC) 
     a.datetime == b.datetime &&
     a.header1 == b.header1 &&
@@ -26,14 +30,6 @@ function ==(a::VarBC,b::VarBC)
     a.records == a.records
 end
 
-function merge!(a::VarBC,b::VarBC)
-    alabels = getfield.(a.records,:label)
-    for rec in b.records
-        if rec.label ∉ alabels
-            push!(a.records,rec) 
-        end 
-    end 
-end 
 
 function read(fname::String,::Type{VarBC})
     io = open(fname)
@@ -46,9 +42,9 @@ function read(fname::String,::Type{VarBC})
 #     @info "Reading $numrecord records from $fname valid for $date $time"
     
     dt = DateTime("$date$(lpad(time,6,"0"))","yyyymmddHHMMSS") 
-    out = VarBC(dt,version,header1, header2,VarBCRecord[])
+    out = VarBC(dt,version,header1, header2,OrderedDict{String,VarBCRecord}())
     while !eof(io)
-        push!(out.records, read(io,VarBCRecord))        
+       push!(out.records, read(io,VarBCRecord))        
     end
     close(io)
     return out
@@ -65,8 +61,10 @@ function write(fname::String,a::VarBC)
     write(io,a.version,"\n")
     write(io,a.header1,"\n")
     write(io,a.header2,"\n")
-    for (i,rec) in enumerate(a.records)
-        write(io,rec,i)
+    i=1
+    for (key,rec) in a.records
+        write(io,rec,key,i)
+        i=i+1
     end 
     close(io)
 end 

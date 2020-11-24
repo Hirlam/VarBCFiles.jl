@@ -2,7 +2,7 @@
 struct VarBCRecord
     pdate::String 
     class::String 
-    key::String 
+    # key::String 
     label::String    
     ndata::Int64
     npred::Int64
@@ -26,7 +26,23 @@ struct VarBCRecord
     println(io, "params = $(a.params)")
  end
 
- increment(a::VarBCRecord) = a.params - a.param0
+ function ==(a::VarBCRecord,b::VarBCRecord)
+     a.pdate == b.pdate &&
+     a.class == b.class &&
+     a.label == b.label &&
+     a.ndata == b.ndata &&
+     a.npred == b.npred &&
+     b.predcs == b.predcs &&
+     a.param0 == b.param0 &&
+     a.params == b.params &&
+     a.hstgrm == b.hstgrm &&
+     a.predxcnt == b.predxcnt &&
+     a.predmean == b.predmean && 
+     a.predxcov == a.predxcov  
+ end  
+
+ # increment(a::VarBCRecord) = a.params - a.param0
+ # label(a::VarBCRecord) = a.label
  
  function read(io::IO,::Type{VarBCRecord})
        rmdi2nan(x) = x == -2.147e+09 ? NaN : x
@@ -46,13 +62,11 @@ struct VarBCRecord
        predxcnt = readline(io) |> x -> replace(x, r"^predxcnt=" => "")  |> x -> parsev(Int64,x)
        predmean = readline(io) |> x -> replace(x, r"^predmean=" => "")  |> x -> parsev(Float64,x)
        predxcov = readline(io) |> x -> replace(x, r"^predxcov=" => "")  |> x -> parsev(Float64,x)
-       VarBCRecord(pdate,class,key,label,ndata,npred,predcs,param0,params,hstgrm,predxcnt,predmean,predxcov) 
+       key => VarBCRecord(pdate,class,label,ndata,npred,predcs,param0,params,hstgrm,predxcnt,predmean,predxcov) 
    end 
 
-
-    
-# note: not finished. Format strings using @printf ?  
-function write(io::IO,a::VarBCRecord, ix::Int)
+ 
+function write(io::IO,a::VarBCRecord, key::String, ix::Int)
  
    # Print Float  Int  Array{Float,1} etc.  
    myprint(f::Float64) = isnan(f) ? "-2.147E+09" : @sprintf("% -.3E",f) 
@@ -63,7 +77,7 @@ function write(io::IO,a::VarBCRecord, ix::Int)
    println(io,"ix=$ix")
    println(io,"pdate=$(myprint(a.pdate))")
    println(io,"class=$(myprint(a.class))")
-   println(io,"key=$(myprint(a.key))")
+   println(io,"key=$key")
    println(io,"label=$(myprint(a.label))")
    println(io,"ndata=$(myprint(a.ndata))")
    println(io,"npred=$(myprint(a.npred))")

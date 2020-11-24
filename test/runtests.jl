@@ -19,10 +19,11 @@ v2 = read("VARBC.cycle2",VarBC)
 end
 
 @testset "merge" begin
-     @test length(v1) == 1080
-     @test length(v2) == 1043
-     merge!(v1,v2)
-     @test length(v1) == 1083    
+    v1 = read("VARBC.cycle1_merge",VarBC)
+    v2 = read("VARBC.cycle2_merge",VarBC)
+    v3 = read("VARBC.cycle_merge2into1",VarBC)
+    merge!(v1,v2)
+    @test v3.records == v1.records             
 end
 
 @testset "Equality operator" begin 
@@ -31,5 +32,6 @@ end
 
 @testset "Conversions" begin
     # Check that rmdi2nan works 
-    @test isnan(v2[1].param0[1])
+    key="D0MZ8zJj 16199110       1     6"
+    @test isnan(v2.records[key].param0[1])
 end
