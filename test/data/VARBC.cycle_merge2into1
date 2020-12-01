@@ -1,0 +1,45 @@
+VARBC_cycle.version006
+MIN1  20190802    120000
+      1080      1080
+ix=1
+pdate=20190802
+class=sfcobs
+key=key1
+label=SFCOBS     stat=D0MZ8zJj rprt= 16199 varn=110 ppcd=       1 salt=     6
+ndata=1
+npred=1
+predcs=0
+param0= 9999
+params= 9999
+hstgrm=0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0
+predxcnt=1
+predmean= 1.000E+00
+predxcov= 0.000E+00
+ix=2
+pdate=20190802
+class=sfcobs
+key=key2
+label=SFCOBS     stat=jyMWkv4j rprt= 16199 varn=110 ppcd=       1 salt=     2
+ndata=1
+npred=1
+predcs=0
+param0= 1.805E+02
+params= 1.810E+02
+hstgrm=0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+predxcnt=1
+predmean= 1.000E+00
+predxcov= 0.000E+00
+ix=3
+pdate=20190802
+class=sfcobs
+key=key3
+label=SFCOBS     stat=jyMWkv4j rprt= 16199 varn=110 ppcd=       1 salt=     2
+ndata=1
+npred=1
+predcs=0
+param0= 1.805E+02
+params= 1.810E+02
+hstgrm=0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+predxcnt=1
+predmean= 1.000E+00
+predxcov= 0.000E+00

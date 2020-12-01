@@ -5,11 +5,11 @@ This package can be used to read `VARBC.cycle` files version 6
 
 ## Examples 
 
-The examples will use the `VARBC.cycle` files from the `test` directory
+The examples will use the `VARBC.cycle` files from the `test/data` directory
 
 ```julia
 julia> using VarBCFiles
-julia> testdir = joinpath(dirname(pathof(VarBCFiles)),"../test")
+julia> testdir = joinpath(dirname(pathof(VarBCFiles)),"../test/data")
 ```
 
 ### Read/write
