@@ -18,7 +18,13 @@ v2 = read("data/VARBC.cycle2",VarBC)
      rm(file)
 end
 
-@testset "merge" begin
+
+@testset "filter!" begin
+    v = read("MEPSprod/VARBC.cycle",VarBC)
+    @test length(filter!(p-> p.second.class=="sfcobs",v)) == 95
+end
+
+@testset "merge!" begin
     v1 = read("data/VARBC.cycle1_merge",VarBC)
     v2 = read("data/VARBC.cycle2_merge",VarBC)
     v3 = read("data/VARBC.cycle_merge2into1",VarBC)
@@ -26,7 +32,8 @@ end
     @test v3.records == v1.records             
 end
 
-@testset "Equality operator" begin 
+
+@testset "Equality" begin 
     @test v1 != v2
 end 
 
