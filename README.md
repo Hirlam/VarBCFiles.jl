@@ -2,7 +2,7 @@
 
 # VarBCFiles
 
-Read `VARBC.cycle` files version 6
+Read, write and merge`VARBC.cycle` files version 6
 
 
 | **Documentation**                    | **Build Status**                              |
