@@ -12,25 +12,27 @@ Read, write and merge`VARBC.cycle` files version 6
 
 ## Installation 
 
-This package can be installed with the Julia package manager. Hit `]` in the Julia REPL to go into package mode. 
-
-
-### Install stable version  
-
-To install the latest version from the [Harmonie Registry](https://github.com/Hirlam/HarmonieRegistry)  
+This package is registered in the [Harmonie Registry](https://github.com/Hirlam/HarmonieRegistry). Hit `]` in the Julia REPL to go into package mode and add the Harmonie registry 
 
 ```julia
 pkg> registry add General
 pkg> registry add https://github.com/Hirlam/HarmonieRegistry
+```
+
+### Install stable version  
+
+To add the latest version 
+
+```julia
 pkg> add VarBCFiles
 ```
 
 ### Install development version
 
-To work on the latest development version in the master branch
+To develop VarBCFiles 
 
 ```julia
-pkg> dev https://github.com/roelstappers/VarBCFiles.jl
+pkg> dev VarBCFiles
 ```
 
-Code will be put in `$HOME/.julia/dev/VarBCFiles/` by default. 
+This will put a git clone in `$HOME/.julia/dev/VarBCFiles/` by default. 
