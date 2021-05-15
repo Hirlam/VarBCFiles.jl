@@ -3,6 +3,6 @@ using Documenter, VarBCFiles
 makedocs(sitename="VarBCFiles")
 
 deploydocs(
-    repo = "github.com/roelstappers/VarBCFiles.jl.git",
+    repo = "github.com/Hirlam/VarBCFiles.jl.git",
     devbranch = "main"
 )
