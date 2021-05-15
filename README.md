@@ -16,15 +16,11 @@ pkg> registry add General
 pkg> registry add https://github.com/Hirlam/HarmonieRegistry
 ```
 
-### Install stable version  
-
-To add the latest version 
+Followed by   
 
 ```julia
 pkg> add VarBCFiles
 ```
-
-### Install development version
 
 To develop VarBCFiles 
 
