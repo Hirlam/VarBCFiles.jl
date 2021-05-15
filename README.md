@@ -1,13 +1,10 @@
-
-
 # VarBCFiles
+
+
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://roelstappers.github.io/VarBCFiles.jl/dev)  [![](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/runtests.yml/badge.svg)](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/runtests.yml) [![](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/Documenter.yml/badge.svg)](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/Documenter.yml)
 
 Read, write and merge`VARBC.cycle` files version 6
 
-
-| **Documentation**                    | **Build Status**                              |
-|:------------------------------------:|:---------------------------------------------:|
-| [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://roelstappers.github.io/VarBCFiles.jl/dev) | [![Build Status](https://travis-ci.com/roelstappers/VarBCFiles.jl.svg?branch=master)](https://travis-ci.com/roelstappers/VarBCFiles.jl) [![Coverage Status](https://coveralls.io/repos/github/roelstappers/VarBCFiles.jl/badge.svg?branch=master)](https://coveralls.io/github/roelstappers/VarBCFiles.jl?branch=master)
 
 
 ## Installation 
