@@ -1,7 +1,7 @@
 # VarBCFiles
 
 
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://roelstappers.github.io/VarBCFiles.jl/dev)  [![](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/runtests.yml/badge.svg)](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/runtests.yml) [![](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/Documenter.yml/badge.svg)](https://github.com/roelstappers/VarBCFiles.jl/actions/workflows/Documenter.yml)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Hirlam.github.io/VarBCFiles.jl/dev)  [![](https://github.com/Hirlam/VarBCFiles.jl/actions/workflows/runtests.yml/badge.svg)](https://github.com/Hirlam/VarBCFiles.jl/actions/workflows/runtests.yml) [![](https://github.com/Hirlam/VarBCFiles.jl/actions/workflows/Documenter.yml/badge.svg)](https://github.com/Hirlam/VarBCFiles.jl/actions/workflows/Documenter.yml)
 
 Read, write and merge`VARBC.cycle` files version 6
 
