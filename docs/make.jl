@@ -4,5 +4,5 @@ makedocs(sitename="VarBCFiles")
 
 deploydocs(
     repo = "github.com/roelstappers/VarBCFiles.jl.git",
-    devbranch = "main
+    devbranch = "main"
 )
