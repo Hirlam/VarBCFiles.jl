@@ -1,7 +1,8 @@
 module VarBCFiles
 
-using Dates, Printf, DataStructures
+using Dates, Printf, DataStructures, DataFrames
 import Base: read, write, show, size, getindex, ==, merge!, length, filter!
+import DataFrames: DataFrame
 export VarBC, VarBCRecord, increment, label
 
 include("VarBCRecord.jl")
@@ -92,6 +93,27 @@ function write(fname::String,a::VarBC)
         i=i+1
     end 
     close(io)
+end 
+
+"""
+    DataFrame(a)
+
+Constructs a DataFrame with param0 values from a VarBC struct. 
+
+Columnnames are: 
+datetime, key, p0, p1, ..... , p18
+"""
+function DataFrame(a::VarBC)
+    colnames = ["datetime", "key" , "p".*string.(0:18)...]
+    coltypes = [DateTime,  String, fill(Float64,19)...]
+    named_tuple = (; zip(Symbol.(colnames), type[] for type in coltypes )...)
+    df = DataFrames.DataFrame(named_tuple)
+    for (key,val) in a.records
+        par = fill(NaN,19) 
+        par[val.predcs.+1] = val.param0
+        push!(df,[a.datetime,key,par...])
+    end
+    return df
 end 
 
 
