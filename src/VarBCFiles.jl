@@ -78,6 +78,26 @@ end
 
 
 """
+    readParamIncrement(filename,key)
+
+returns namedTuple of paramIncrement 
+"""
+function readParamIncrement(fname::String,key)
+    io = open(fname)
+    version = readline(io); @assert version == "VARBC_cycle.version006"
+    header1 = readline(io)
+    header2 = readline(io)
+    while !eof(io)
+       rec = read(io,VarBCRecord)
+       val = last(rec)
+       if key== first(rec)
+         return ( ; zip(Symbol.("p",val.predcs),val.params-val.param0)...)
+       end
+    end
+    close(io)
+end
+
+"""
     write(fname,a)
 
 Write VarBC struct to file
@@ -95,26 +115,6 @@ function write(fname::String,a::VarBC)
     close(io)
 end 
 
-"""
-    DataFrame(a)
-
-Constructs a DataFrame with param0 values from a VarBC struct. 
-
-Columnnames are: 
-datetime, key, p0, p1, ..... , p18
-"""
-function DataFrame(a::VarBC)
-    colnames = ["datetime", "key" , "p".*string.(0:18)...]
-    coltypes = [DateTime,  String, fill(Float64,19)...]
-    named_tuple = (; zip(Symbol.(colnames), type[] for type in coltypes )...)
-    df = DataFrames.DataFrame(named_tuple)
-    for (key,val) in a.records
-        par = fill(NaN,19) 
-        par[val.predcs.+1] = val.param0
-        push!(df,[a.datetime,key,par...])
-    end
-    return df
-end 
 
 
 end # module
