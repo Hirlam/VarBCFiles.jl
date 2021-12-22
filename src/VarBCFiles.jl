@@ -1,9 +1,9 @@
 module VarBCFiles
 
 using Dates, Printf, DataStructures, DataFrames
-import Base: read, write, show, size, getindex, ==, merge!, length, filter!
+import Base: read, write, show, size, getindex, ==, merge!, length, filter!, keys
 import DataFrames: DataFrame
-export VarBC, VarBCRecord, increment, label
+export VarBC, VarBCRecord, increment, label,keys, readParamIncrement
 
 include("VarBCRecord.jl")
 
@@ -56,6 +56,13 @@ function ==(a::VarBC,b::VarBC)
 end
 
 """
+    keys(a) 
+
+Returns keys 
+"""
+keys(a::VarBC) = keys(a.records) 
+
+"""
     read(filename,VarBC)
 
 returns a object of type `VarBC` 
@@ -84,14 +91,17 @@ returns namedTuple of paramIncrement
 """
 function readParamIncrement(fname::String,key)
     io = open(fname)
-    version = readline(io); @assert version == "VARBC_cycle.version006"
+    version = readline(io); 
+    @assert version == "VARBC_cycle.version006"
     header1 = readline(io)
     header2 = readline(io)
+    str, date, time = split(header1)
+    dt = DateTime("$date$(lpad(time,6,"0"))","yyyymmddHHMMSS") 
     while !eof(io)
        rec = read(io,VarBCRecord)
        val = last(rec)
        if key== first(rec)
-         return ( ; zip(Symbol.("p",val.predcs),val.params-val.param0)...)
+         return ( ;datetime=dt, zip(Symbol.("p",val.predcs),val.params-val.param0)...)
        end
     end
     close(io)
